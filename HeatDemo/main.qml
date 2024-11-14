@@ -25,22 +25,9 @@ Window {
         copyrightsVisible: false
         activeMapType: myMap.supportedMapTypes[1]
 
-        /*PluginParameter {
-        name: "osm.mapping.custom.host";
-        value: "https://tile.thunderforest.com1/cycle/%z/%x/%y.png?apikey=<my API key here>"
-        //value: "https://tile.thunderforest.com/cycle/%z/%x/%y.png"
-        }*/
-        /*PluginParameter {
-                name: "osm.mapping.providersrepository.address";
-                // name: "osm.geocoding.host"; (also didn't work)
-                //value: "https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=<my_api_key>" 
-                value: "https://tile.thunderforest.com1/cycle/%z/%x/%y.png?apikey=b41df9be963248eeb3ebdbf258f1d43f"
-               }*/
         plugin: Plugin {
             id: mapPlugin
             name: "osm"
-            //PluginParameter { name: "osm.mapping.providersrepository.address"; value: "/opt/DataDisk1-21/wj/ai/work/opensource/qt-osm-map-providers1" }
-            //PluginParameter { name: "osm.mapping.highdpi_tiles"; value: true }
             PluginParameter {
             name: "osm.mapping.custom.host";
             value: "https://tile.thunderforest.com/cycle/%z/%x/%y.png?apikey=b41df9be963248eeb3ebdbf258f1d43f&"
@@ -49,8 +36,7 @@ Window {
         onSupportedMapTypesChanged: {
         myMap.activeMapType = myMap.supportedMapTypes[myMap.supportedMapTypes.length - 1]
         console.log("Changed: "+myMap.activeMapType.name);
-     }
-        //activeMapType: supportedMapTypes[1]
+     } //必不可少
         MapCircle {
             id:point1
             center {
