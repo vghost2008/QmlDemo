@@ -10,20 +10,47 @@ Window {
     height: 480
     visible: true
     title: qsTr("Map Heat")
-    Plugin {
+    /*Plugin {
         id: mapPlugin
         name: "osm"
-    }
+    }*/
 
     Map{
         id:myMap
         anchors.fill: parent
-        plugin: mapPlugin
+        //plugin: mapPlugin
         zoomLevel: 8
         color: "#00000000"
         center: QtPositioning.coordinate(24,102)
         copyrightsVisible: false
         activeMapType: myMap.supportedMapTypes[1]
+
+        /*PluginParameter {
+        name: "osm.mapping.custom.host";
+        value: "https://tile.thunderforest.com1/cycle/%z/%x/%y.png?apikey=<my API key here>"
+        //value: "https://tile.thunderforest.com/cycle/%z/%x/%y.png"
+        }*/
+        /*PluginParameter {
+                name: "osm.mapping.providersrepository.address";
+                // name: "osm.geocoding.host"; (also didn't work)
+                //value: "https://tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=<my_api_key>" 
+                value: "https://tile.thunderforest.com1/cycle/%z/%x/%y.png?apikey=b41df9be963248eeb3ebdbf258f1d43f"
+               }*/
+        plugin: Plugin {
+            id: mapPlugin
+            name: "osm"
+            //PluginParameter { name: "osm.mapping.providersrepository.address"; value: "/opt/DataDisk1-21/wj/ai/work/opensource/qt-osm-map-providers1" }
+            //PluginParameter { name: "osm.mapping.highdpi_tiles"; value: true }
+            PluginParameter {
+            name: "osm.mapping.custom.host";
+            value: "https://tile.thunderforest.com/cycle/%z/%x/%y.png?apikey=b41df9be963248eeb3ebdbf258f1d43f&"
+            }
+        }
+        onSupportedMapTypesChanged: {
+        myMap.activeMapType = myMap.supportedMapTypes[myMap.supportedMapTypes.length - 1]
+        console.log("Changed: "+myMap.activeMapType.name);
+     }
+        //activeMapType: supportedMapTypes[1]
         MapCircle {
             id:point1
             center {
@@ -142,6 +169,9 @@ Window {
         mapHeatImage.appendListPos(pos4)
         var pos5 = myMap.fromCoordinate(point5.center)
         mapHeatImage.appendListPos(pos5)
+        for(var m in myMap.supportedMapTypes)
+            console.log(m);
+        console.log(myMap.activeMapType.name);
     }
 
 //    function setMapOffLineType(){
